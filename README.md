@@ -1,5 +1,10 @@
 # Brain age modelling and prediction
 
+This repository contains scripts for Brain Age prediction to explore the effects of COVID-19 and the pandemic on brain ageing, as described in this paper: [A. R. Mohammadi-Nejad, M. Craig, E. Cox, X. Chen, R. G. Jenkins, S. Francis, S. N. Sotiropoulos, D. P. Auer, “Brains Under Stress: Unravelling the Effects of the COVID-19 Pandemic on Brain Ageing”, medrxiv, 2024][paper-medrxiv-link].
+
+## Repository Overview
+This repository has two sections: the first contains the code for the brain age estimation model, available in the 'model' folder. The second section includes the code used to produce the figures for the paper, located in the 'paper' folder.
+
 This module supports training of a model to predict age from a set of IDPs or
 other measures. The model can then be used to determine a subject's 'brain age'
 from a set of the same measured, and hence a 'brain delta' that expresses
@@ -108,4 +113,10 @@ should be CSV or TSV in format and contain the feature values for the prediction
 ### Programmatic interface
 
 See the ``examples`` folder for code samples showing how to use the brain age module in a Python program
+
+<!-- References -->
+
+[paper-medrxiv-link]: https://www.medrxiv.org/content/10.1101/2024.07.22.24310790v1
+
+
 
