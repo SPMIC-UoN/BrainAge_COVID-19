@@ -28,9 +28,7 @@ The provided dataset is a text file containing data for 1,336 participants. Each
 
 The repository includes a Python script (`Age_predict.py`) that reads the provided dataset and generates the figures presented in the paper. This code is designed to facilitate the replication of our results and to help other researchers understand and extend our work.
 
-### Usage
-
-1. **Running the Code**:
+### Running the Code:
    - Execute the provided Python script to generate the figures.
    - The code will automatically read the dataset and produce the necessary visualizations, including:
      - **Fig. 1e**: Stability of the brain age predictive model across two scans.
