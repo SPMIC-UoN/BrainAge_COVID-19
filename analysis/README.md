@@ -10,7 +10,7 @@ The provided dataset is a text file containing data for 1,336 participants. Each
   - `Pandemic-COVID-19`: Participants scanned before and after the pandemic, who contracted COVID-19.
   - `Pandemic-No COVID-19`: Participants scanned before and after the pandemic, who did not contract COVID-19.
   - `No Pandemic`: Participants scanned twice before the pandemic.
-    *(Details of the categorization process are available in the paper.)*
+    *(Details of the categorisation process are available in the paper.)*
 - Gender: The sex of the participants, with possible values Male or Female.
 - AgeGapT0_gm: The predicted brain age gap at the first time point, estimated based on the Grey Matter (GM) model.
 - AgeGapT1_gm: The predicted brain age gap at the second time point, estimated based on the Grey Matter (GM) model.
@@ -26,17 +26,19 @@ The provided dataset is a text file containing data for 1,336 participants. Each
 
 ## Code Description
 
-The repository includes Python code that reads the provided dataset and generates the figures presented in the paper. This code is designed to facilitate the replication of our results and to help other researchers in understanding and extending our work.
+The repository includes a Python script (`Age_predict.py`) that reads the provided dataset and generates the figures presented in the paper. This code is designed to facilitate the replication of our results and to help other researchers understand and extend our work.
 
-## Usage
+### Usage
 
-1. **Data Preparation**: Ensure the dataset is correctly formatted and located in the directory where the code will be executed.
-2. **Running the Code**:
-   1. Execute the provided Python scripts to generate the figures.
-   2. The code will automatically read the dataset and produce the necessary visualizations.
-3. **Customization**:
-   1. Modify the code as needed to explore different aspects of the data.
-   2. Adapt it for related research questions.
+1. **Running the Code**:
+   - Execute the provided Python script to generate the figures.
+   - The code will automatically read the dataset and produce the necessary visualizations, including:
+     - **Fig. 1e**: Stability of the brain age predictive model across two scans.
+     - **Fig. 2**: Effect of COVID-19 and its pandemic on brain ageing.
+     - **Fig. 3a**: Impact of SARS-CoV-2 infection and the COVID-19 pandemic on accelerated brain ageing.
+     - **Fig. 3b**: Role of sex in brain ageing during the pandemic (a combination of 6 different figures embedded in a single figure).
+     - **Figs. 4b-d**: Influence of socio-demographic factors on brain ageing during the COVID-19 pandemic (each figure is produced by combining 6 different figures).
+     - **Fig. 5**: Impact of COVID-19 on cognitive performance across rates of change in brain age gap.
 
 By following these instructions, you can reproduce the key figures from our study and further investigate the impact of the COVID-19 pandemic on brain ageing.
 
