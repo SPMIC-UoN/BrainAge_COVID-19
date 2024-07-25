@@ -735,6 +735,209 @@ def main():
     plt.tight_layout()
     
     plt.savefig((COV_DATA_DIR + "/figs/delta_norm_wm_Female.png"), format='png', dpi=600)
+
+    """
+    Figure 4b
+    """
+    df_gm = pd.concat([df_G4_gm, df_G3_gm], ignore_index=True, sort=False)
+    df_wm = pd.concat([df_G4_wm, df_G3_wm], ignore_index=True, sort=False)
+
+    df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'NaN'].index)
+    df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'NaN'].index)
+    df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'Medium'].index)
+    df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'Medium'].index)
+
+    fig, ax = plt.subplots(figsize=(4, 5), num=None, facecolor='w', edgecolor='k')
+
+    df_data = df_gm
+    df_data = df_data.reset_index(drop=True)
+    interaction_plot(x=df_data['group'], trace=df_data['Empl_Categ'], response=df_data['Norm_Delta_gm'], 
+        colors=['black', 'black'], markersize=21, ax=ax, linewidth=7)
+    
+    interaction_plot(x=df_data['group'], trace=df_data['Empl_Categ'], response=df_data['Norm_Delta_gm'], 
+        colors=['violet', 'tomato'], markersize=16, ax=ax, linewidth=5)
+
+    plt.xticks(fontsize=10, weight='bold')
+    plt.yticks(fontsize=10, weight='bold')
+    plt.ylabel("Mean (years)",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.xlabel("Groups",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.legend().remove()
+    
+    # Adjust layout
+    plt.tight_layout()
+    plt.savefig((COV_DATA_DIR + "/figs/interaction_plot_employment_gm.png"), format='png', dpi=600)
+
+    fig, ax = plt.subplots(figsize=(4, 5), num=None, facecolor='w', edgecolor='k')
+
+    df_data = df_wm
+    df_data = df_data.reset_index(drop=True)
+    interaction_plot(x=df_data['group'], trace=df_data['Empl_Categ'], response=df_data['Norm_Delta_wm'], 
+        colors=['black', 'black'], markersize=21, ax=ax, linewidth=7)
+    
+    interaction_plot(x=df_data['group'], trace=df_data['Empl_Categ'], response=df_data['Norm_Delta_wm'], 
+        colors=['violet', 'tomato'], markersize=16, ax=ax, linewidth=5)
+
+    plt.xticks(fontsize=10, weight='bold')
+    plt.yticks(fontsize=10, weight='bold')
+    plt.ylabel("Mean (years)",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.xlabel("Groups",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.legend().remove()
+    
+    # Adjust layout
+    plt.tight_layout()
+    plt.savefig((COV_DATA_DIR + "/figs/interaction_plot_employment_wm.png"), format='png', dpi=600)
+
+    # make_2factors_2levels_design_contrast_cell_means(depvar = 'Norm_Delta_gm', 
+    #             f1 = 'group', f1l1 = 'Pandemic', f1l2 = 'No Pandemic',
+    #             f2 = 'Empl_Categ', f2l1 = 'Low', f2l2 = 'High',
+    #             df = df_gm)
+    # call_pal('5000')
+
+    # make_2factors_2levels_design_contrast_cell_means(depvar = 'Norm_Delta_wm', 
+    #             f1 = 'group', f1l1 = 'Pandemic', f1l2 = 'No Pandemic',
+    #             f2 = 'Empl_Categ', f2l1 = 'Low', f2l2 = 'High',
+    #             df = df_wm)
+    # call_pal('5000')
+
+    fig = plt.figure(figsize=(4, 6), num=None)
+    ax = plt.subplot(1,1,1)
+
+    df_gm      = pd.concat([df_G4_gm,  df_G3_gm],  ignore_index=True, sort=False)
+    df_wm      = pd.concat([df_G4_wm,  df_G3_wm],  ignore_index=True, sort=False)
+    box_pairs=[("Pandemic", "No Pandemic")]
+
+    # df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'High'].index)
+    # df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'High'].index)
+    df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'Low'].index)
+    df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'Low'].index)
+
+    # my_pal = {"Low": "tomato", "High": "violet"}
+    df_data=df_gm
+
+    # Remove outliers from the dataset
+    df_data = remove_outliers(df_data, 'Norm_Delta_gm')
+
+    sns.violinplot(data=df_data, x="group", y="Norm_Delta_gm", order=["No Pandemic", "Pandemic"], 
+                   color="violet", linewidth=2)        
+    ax.set_ylim([-40, 90])
+
+    annotator = Annotator(ax, box_pairs, data=df_data, x="group", y="Norm_Delta_gm")
+    annotator.configure(test='t-test_ind', text_format='star', loc='inside')
+    _, corrected_results = annotator.apply_and_annotate()
+
+    plt.xticks(fontsize=10, weight='bold')
+    plt.yticks(np.arange(-30, 40, 10), fontsize=10, weight='bold')
+    plt.ylabel("Normalised (AgeGapT1 - AgeGapT0) (years)",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.xlabel("Groups",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.legend([],[], frameon=False)            
+    plt.tight_layout()
+
+    plt.savefig((COV_DATA_DIR + "/figs/Employment_norm_gm_High.png"), format='png', dpi=600)
+
+    fig = plt.figure(figsize=(4, 6), num=None)
+    ax = plt.subplot(1,1,1)
+
+    df_gm      = pd.concat([df_G4_gm,  df_G3_gm],  ignore_index=True, sort=False)
+    df_wm      = pd.concat([df_G4_wm,  df_G3_wm],  ignore_index=True, sort=False)
+    box_pairs=[("Pandemic", "No Pandemic")]
+
+    df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'High'].index)
+    df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'High'].index)
+    # df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'Low'].index)
+    # df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'Low'].index)
+
+    # my_pal = {"Low": "tomato", "High": "violet"}
+    df_data=df_gm
+
+    # Remove outliers from the dataset
+    df_data = remove_outliers(df_data, 'Norm_Delta_gm')
+
+    sns.violinplot(data=df_data, x="group", y="Norm_Delta_gm", order=["No Pandemic", "Pandemic"], 
+                   color="tomato", linewidth=2)        
+    ax.set_ylim([-40, 90])
+
+    annotator = Annotator(ax, box_pairs, data=df_data, x="group", y="Norm_Delta_gm")
+    annotator.configure(test='t-test_ind', text_format='star', loc='inside')
+    _, corrected_results = annotator.apply_and_annotate()
+
+    plt.xticks(fontsize=10, weight='bold')
+    plt.yticks(np.arange(-30, 40, 10), fontsize=10, weight='bold')
+    plt.ylabel("Normalised (AgeGapT1 - AgeGapT0) (years)",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.xlabel("Groups",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.legend([],[], frameon=False)            
+    plt.tight_layout()
+
+    plt.savefig((COV_DATA_DIR + "/figs/Employment_norm_gm_Low.png"), format='png', dpi=600)
+
+    fig = plt.figure(figsize=(4, 6), num=None)
+    ax = plt.subplot(1,1,1)
+
+    df_gm      = pd.concat([df_G4_gm,  df_G3_gm],  ignore_index=True, sort=False)
+    df_wm      = pd.concat([df_G4_wm,  df_G3_wm],  ignore_index=True, sort=False)
+    box_pairs=[("Pandemic", "No Pandemic")]
+
+    # df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'High'].index)
+    # df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'High'].index)
+    df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'Low'].index)
+    df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'Low'].index)
+
+    # my_pal = {"Low": "tomato", "High": "violet"}
+    df_data=df_wm
+
+    # Remove outliers from the dataset
+    df_data = remove_outliers(df_data, 'Norm_Delta_wm')
+
+    sns.violinplot(data=df_data, x="group", y="Norm_Delta_wm", order=["No Pandemic", "Pandemic"], 
+                   color="violet", linewidth=2)        
+    ax.set_ylim([-40, 90])
+
+    annotator = Annotator(ax, box_pairs, data=df_data, x="group", y="Norm_Delta_wm")
+    annotator.configure(test='t-test_ind', text_format='star', loc='inside')
+    _, corrected_results = annotator.apply_and_annotate()
+
+    plt.xticks(fontsize=10, weight='bold')
+    plt.yticks(np.arange(-30, 40, 10), fontsize=10, weight='bold')
+    plt.ylabel("Normalised (AgeGapT1 - AgeGapT0) (years)",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.xlabel("Groups",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.legend([],[], frameon=False)            
+    plt.tight_layout()
+
+    plt.savefig((COV_DATA_DIR + "/figs/Employment_norm_wm_High.png"), format='png', dpi=600)
+
+    fig = plt.figure(figsize=(4, 6), num=None)
+    ax = plt.subplot(1,1,1)
+
+    df_gm      = pd.concat([df_G4_gm,  df_G3_gm],  ignore_index=True, sort=False)
+    df_wm      = pd.concat([df_G4_wm,  df_G3_wm],  ignore_index=True, sort=False)
+    box_pairs=[("Pandemic", "No Pandemic")]
+
+    df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'High'].index)
+    df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'High'].index)
+    # df_gm = df_gm.drop(df_gm[df_gm['Empl_Categ'] == 'Low'].index)
+    # df_wm = df_wm.drop(df_wm[df_wm['Empl_Categ'] == 'Low'].index)
+
+    # my_pal = {"Low": "tomato", "High": "violet"}
+    df_data=df_wm
+
+    # Remove outliers from the dataset
+    df_data = remove_outliers(df_data, 'Norm_Delta_wm')
+
+    sns.violinplot(data=df_data, x="group", y="Norm_Delta_wm", order=["No Pandemic", "Pandemic"], 
+                   color="tomato", linewidth=2)        
+    ax.set_ylim([-40, 90])
+
+    annotator = Annotator(ax, box_pairs, data=df_data, x="group", y="Norm_Delta_wm")
+    annotator.configure(test='t-test_ind', text_format='star', loc='inside')
+    _, corrected_results = annotator.apply_and_annotate()
+
+    plt.xticks(fontsize=10, weight='bold')
+    plt.yticks(np.arange(-30, 40, 10), fontsize=10, weight='bold')
+    plt.ylabel("Normalised (AgeGapT1 - AgeGapT0) (years)",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.xlabel("Groups",fontsize=10, weight='bold', color='darkred', alpha=1)
+    plt.legend([],[], frameon=False)            
+    plt.tight_layout()
+
+    plt.savefig((COV_DATA_DIR + "/figs/Employment_norm_wm_Low.png"), format='png', dpi=600)
     
     df_G1_gm
 
