@@ -24,6 +24,42 @@ The provided dataset is a text file containing data for 1,336 participants. Each
 - Incom_Categ: The income score of participants, categorized into three levels as a deprivation index: `Low`, `Medium`, and `High`.
 - Educ_Categ: The education score of participants, categorized into three levels as a deprivation index: `Low`, `Medium`, and `High`.
 
+## Pretrained Models
+
+This repository includes the pretrained models used in our study. The models have been trained separately for different groups based on tissue type and sex:
+
+### **Available Models**
+- **Grey Matter (GM) Models:**
+  - **Females:** `trained_model_50Pcs_gm_F`
+  - **Males:** `trained_model_50Pcs_gm_M`
+  
+- **White Matter (WM) Models:**
+  - **Females:** `trained_model_50Pcs_wm_F`
+  - **Males:** `trained_model_50Pcs_wm_M`
+
+### **Model File Structure & Reconstruction**
+Due to file size constraints, each model has been **split into smaller files** for easier storage and sharing. Before using a model, you must reconstruct it by concatenating its parts. 
+
+To do this, navigate to the directory containing the model files and run the following command in your terminal:
+
+```sh
+cat trained_model_50Pcs_<type>_<sex>_* > trained_model_50Pcs_<type>_<sex>
+```
+
+Replace:
+- <type> with gm (Grey Matter) or wm (White Matter).
+- <sex> with F (Females) or M (Males).
+
+For example, to reconstruct the Grey Matter model for females, run:
+
+```sh
+cat trained_model_50Pcs_gm_F_* > trained_model_50Pcs_gm_F
+```
+
+### **Using the Models**
+Once reassembled, the models can be loaded directly for inference. If you encounter any issues or have questions, please feel free to reach out.
+
+
 ## Code Description
 
 The repository includes a Python script (`Age_predict.py`) that reads the provided dataset and generates the figures presented in the paper. This code is designed to facilitate the replication of our results and to help other researchers understand and extend our work.
