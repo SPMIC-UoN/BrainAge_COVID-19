@@ -30,7 +30,7 @@ The repository includes a Python script (`Age_predict.py`) that reads the provid
 
 ## Pretrained models
 
-Earlier versions of this repository included pretrained model files. UK Biobank identified that, due to how the `--save` option serializes `BrainDelta` model objects, these files embedded the full training feature matrices and ages of the UK Biobank participants used to fit them — which is not permitted for redistribution under UK Biobank's data-sharing terms. At UK Biobank's request, these files, along with the associated participant data file, have been removed from this repository and its history.
+Earlier versions of this repository included pretrained model files. UK Biobank identified that, due to how the `--save` option serializes `BrainDelta` model objects, these files embedded the full training feature matrices and ages of the UK Biobank participants used to fit them, which is not permitted for redistribution under UK Biobank's data-sharing terms. At UK Biobank's request, these files, along with the associated participant data file, have been removed from this repository and its history.
 
 To reproduce a model, use your own UK Biobank-approved data extract with the `--train-ages`, `--train-features`, and `--save` options documented above.
 
