@@ -28,6 +28,12 @@ The provided dataset is a text file containing data for 1,336 participants. Each
 
 The repository includes a Python script (`Age_predict.py`) that reads the provided dataset and generates the figures presented in the paper. This code is designed to facilitate the replication of our results and to help other researchers understand and extend our work.
 
+## Pretrained models
+
+Earlier versions of this repository included pretrained model files. UK Biobank identified that, due to how the `--save` option serializes `BrainDelta` model objects, these files embedded the full training feature matrices and ages of the UK Biobank participants used to fit them — which is not permitted for redistribution under UK Biobank's data-sharing terms. At UK Biobank's request, these files, along with the associated participant data file, have been removed from this repository and its history.
+
+To reproduce a model, use your own UK Biobank-approved data extract with the `--train-ages`, `--train-features`, and `--save` options documented above.
+
 ### Running the Code:
    - Execute the provided Python script to generate the figures.
    - The code will automatically read the dataset and produce the necessary visualizations, including:
