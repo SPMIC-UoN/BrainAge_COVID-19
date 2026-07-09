@@ -30,11 +30,11 @@ The repository includes a Python script (`Age_predict.py`) that reads the provid
 
 ## Pretrained models
 
-Earlier versions of this repository included pretrained model files. UK Biobank identified that, due to how the `--save` option serializes `BrainDelta` model objects, these files embedded the full training feature matrices and ages of the UK Biobank participants used to fit them, which is not permitted for redistribution under UK Biobank's data-sharing terms. At UK Biobank's request, these files, along with the associated participant data file, have been removed from this repository and its history.
+The pretrained model files and example participant data file that were included in earlier versions of this repository have been removed following a request from UK Biobank to comply with its data-sharing policy. The repository history has also been cleaned so that no UK Biobank participant data are publicly available.
 
-To reproduce a model, use your own UK Biobank-approved data extract with the `--train-ages`, `--train-features`, and `--save` options documented above.
+To reproduce the pretrained models, please use your own UK Biobank-approved dataset together with the `--train-ages`, `--train-features`, and `--save` options described above.
 
-### Running the Code:
+## Running the Code:
    - Execute the provided Python script to generate the figures.
    - The code will automatically read the dataset and produce the necessary visualizations, including:
      - **Fig. 1e**: Stability of the brain age predictive model across two scans.
